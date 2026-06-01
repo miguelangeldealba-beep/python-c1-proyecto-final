@@ -1,0 +1,6 @@
+tipo,nombre,telefono,estado,especialidad,direccion
+paciente,Juan Perez,666111222,ACTIVO,,
+paciente,Ana Lopez,666333444,ACTIVO,,
+doctor,Carlos Garcia,,,Ortodoncia,
+doctor,Maria Ruiz,,,Endodoncia,
+centro,Clinica Central,,,,Calle Mayor 12

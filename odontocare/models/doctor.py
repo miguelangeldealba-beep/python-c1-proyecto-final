@@ -1,21 +1,22 @@
 from extensions import db
 
-class Patient(db.Model):
-    __tablename__ = "patients"
+class Doctor(db.Model):
+    __tablename__ = "doctores"
 
     id = db.Column(db.Integer, primary_key=True)
     nombre = db.Column(db.String(100), nullable=False)
-    telefono = db.Column(db.String(20))
+    especialidad = db.Column(db.String(100))
     estado = db.Column(db.String(20), default="ACTIVO")
     usuario_id = db.Column(
         db.Integer,
         db.ForeignKey("users.id"),
         nullable=True
     )
+    
     def to_dict(self):
         return {
             "id": self.id,
             "nombre": self.nombre,
-            "telefono": self.telefono,
+            "especialidad": self.especialidad,
             "estado": self.estado
         }
