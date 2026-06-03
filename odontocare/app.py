@@ -5,6 +5,7 @@ from admin_bp.routes import admin_bp
 from models.user import User
 from extensions import jwt
 from auth_bp.routes import auth_bp
+from citas_bp import citas_bp
 from models.doctor import Doctor
 from models.centro import Centro
 from models.cita import Cita
@@ -24,6 +25,7 @@ def create_app():
 
     app.register_blueprint(admin_bp, url_prefix="/admin")
     app.register_blueprint(auth_bp)
+    app.register_blueprint(citas_bp)
 
     @app.route("/")
     def home():

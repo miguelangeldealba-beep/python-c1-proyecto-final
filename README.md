@@ -73,7 +73,7 @@ odontocare/
 
 - Crear paciente
 - Consultar paciente
-- Actualizar paciente
+- Actualizar pacientew
 - Eliminar paciente
 
 ### Gestión de Doctores
