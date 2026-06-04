@@ -6,13 +6,14 @@ from models.patient import Patient
 from models.user import User
 from models.doctor import Doctor
 from models.centro import Centro
-
+from utils.roles import role_required
 
 admin_bp = Blueprint("admin_bp", __name__)
 
 
 @admin_bp.route("/usuario", methods=["POST"])
 @jwt_required()
+@role_required("admin", "secretaria")
 def create_user():
 
     data = request.get_json()
@@ -33,6 +34,7 @@ def create_user():
 
 @admin_bp.route("/pacientes", methods=["POST"])
 @jwt_required()
+@role_required("admin", "secretaria")
 def create_patient():
 
     data = request.get_json()
@@ -54,6 +56,7 @@ def create_patient():
 
 @admin_bp.route("/pacientes", methods=["GET"])
 @jwt_required()
+@role_required("admin", "secretaria")
 def get_patients():
 
     patients = Patient.query.all()
@@ -66,7 +69,8 @@ def get_patients():
 
 @admin_bp.route("/pacientes/<int:id>", methods=["GET"])
 @jwt_required()
-def get_patient(id):
+@role_required("admin", "secretaria")
+def get_paciente(id):
 
     patient = Patient.query.get(id)
 
@@ -80,6 +84,7 @@ def get_patient(id):
 
 @admin_bp.route("/pacientes/<int:id>", methods=["PUT"])
 @jwt_required()
+@role_required("admin", "secretaria")
 def update_patient(id):
 
     patient = Patient.query.get(id)
@@ -105,6 +110,7 @@ def update_patient(id):
 
 @admin_bp.route("/pacientes/<int:id>", methods=["DELETE"])
 @jwt_required()
+@role_required("admin", "secretaria")
 def delete_patient(id):
 
     patient = Patient.query.get(id)
@@ -124,6 +130,7 @@ def delete_patient(id):
 
 @admin_bp.route("/doctores", methods=["POST"])
 @jwt_required()
+@role_required("admin", "secretaria")
 def create_doctor():
 
     data = request.get_json()
@@ -143,6 +150,7 @@ def create_doctor():
 
 @admin_bp.route("/doctores", methods=["GET"])
 @jwt_required()
+@role_required("admin", "secretaria")
 def get_doctores():
 
     doctors = Doctor.query.all()
@@ -161,6 +169,7 @@ def get_doctores():
 
 @admin_bp.route("/doctores/<int:id>", methods=["GET"])
 @jwt_required()
+@role_required("admin", "secretaria")
 def get_doctor(id):
 
     doctor = Doctor.query.get(id)
@@ -179,6 +188,7 @@ def get_doctor(id):
 
 @admin_bp.route("/doctores/<int:id>", methods=["PUT"])
 @jwt_required()
+@role_required("admin", "secretaria")
 def update_doctor(id):
 
     doctor = Doctor.query.get(id)
@@ -202,6 +212,7 @@ def update_doctor(id):
 
 @admin_bp.route("/doctores/<int:id>", methods=["DELETE"])
 @jwt_required()
+@role_required("admin", "secretaria")
 def delete_doctor(id):
 
     doctor = Doctor.query.get(id)
@@ -221,6 +232,7 @@ def delete_doctor(id):
 
 @admin_bp.route("/centros", methods=["POST"])
 @jwt_required()
+@role_required("admin", "secretaria")
 def create_centro():
 
     data = request.get_json()
@@ -240,6 +252,7 @@ def create_centro():
 
 @admin_bp.route("/centros", methods=["GET"])
 @jwt_required()
+@role_required("admin", "secretaria")
 def get_centros():
 
     centros = Centro.query.all()
@@ -258,6 +271,7 @@ def get_centros():
 
 @admin_bp.route("/centros/<int:id>", methods=["GET"])
 @jwt_required()
+@role_required("admin", "secretaria")
 def get_centro(id):
 
     centro = Centro.query.get(id)
@@ -276,6 +290,7 @@ def get_centro(id):
 
 @admin_bp.route("/centros/<int:id>", methods=["PUT"])
 @jwt_required()
+@role_required("admin", "secretaria")
 def update_centro(id):
 
     centro = Centro.query.get(id)
@@ -299,6 +314,7 @@ def update_centro(id):
 
 @admin_bp.route("/centros/<int:id>", methods=["DELETE"])
 @jwt_required()
+@role_required("admin", "secretaria")
 def delete_centro(id):
 
     centro = Centro.query.get(id)

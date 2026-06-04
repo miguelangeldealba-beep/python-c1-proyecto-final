@@ -4,6 +4,7 @@ from flask_jwt_extended import jwt_required
 from extensions import db
 from models.cita import Cita
 from . import citas_bp
+from utils.roles import role_required
 
 import os
 import requests
@@ -11,11 +12,13 @@ import requests
 
 @citas_bp.route("/citas", methods=["POST"])
 @jwt_required()
+@role_required("admin", "secretaria")
 def create_cita():
 
     data = request.get_json()
 
     admin_url = os.getenv("ADMIN_SERVICE_URL", "http://127.0.0.1:5000")
+    print("ADMIN URL:", admin_url)
 
     headers = {
         "Authorization": request.headers.get("Authorization")
@@ -87,6 +90,7 @@ def create_cita():
 
 @citas_bp.route("/citas", methods=["GET"])
 @jwt_required()
+@role_required("admin", "secretaria", "medico")
 def get_citas():
 
     citas = Cita.query.all()
@@ -109,6 +113,7 @@ def get_citas():
 
 @citas_bp.route("/citas/<int:id>", methods=["GET"])
 @jwt_required()
+@role_required("admin", "secretaria", "medico", "paciente")
 def get_cita(id):
 
     cita = Cita.query.get(id)
@@ -131,6 +136,7 @@ def get_cita(id):
 
 @citas_bp.route("/citas/<int:id>", methods=["PUT"])
 @jwt_required()
+@role_required("admin", "secretaria")
 def update_cita(id):
 
     cita = Cita.query.get(id)
@@ -158,6 +164,7 @@ def update_cita(id):
 
 @citas_bp.route("/citas/<int:id>", methods=["DELETE"])
 @jwt_required()
+@role_required("admin")
 def delete_cita(id):
 
     cita = Cita.query.get(id)

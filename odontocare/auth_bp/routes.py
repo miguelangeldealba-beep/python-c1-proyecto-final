@@ -26,11 +26,15 @@ def login():
         }), 401
 
     access_token = create_access_token(
-        identity=user.username
+        identity=user.username,
+        additional_claims={
+            "role": user.role
+        }
     )
 
     return jsonify({
-        "token": access_token
+        "token": access_token,
+        "role": user.role
     })
 
 
@@ -49,9 +53,9 @@ def register():
         }), 400
 
     new_user = User(
-    username=data["username"],
-    password=data["password"],
-    role="admin"
+        username=data["username"],
+        password=data["password"],
+        role=data.get("role", "paciente")
     )
 
     db.session.add(new_user)
